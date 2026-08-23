@@ -1,0 +1,26 @@
+AI PRODUCT STUDIO — QUICK GUIDE
+
+একটি ছবি + চাইলে নাম/price/stock hint দিন। AI draft করবে:
+- Product name
+- Category
+- Description
+- Unit
+- Tags
+- Preparation/Cutting note
+- Price (শুধু আপনার দেওয়া hint থাকলে)
+- Stock (শুধু আপনার দেওয়া hint থাকলে)
+
+তারপর Admin draft edit করে Approve & Save চাপবে।
+
+বড় catalog-এর জন্য:
+1. CSV Template download করুন
+2. নাম/ক্যাটাগরি/price/unit/stock bulk fill করুন
+3. Image URL থাকলে দিন
+4. Save/import workflow দিয়ে catalog তৈরি করুন
+
+ভবিষ্যৎ extension:
+- Batch image upload
+- AI duplicate product detection
+- AI price-list matching
+- Supplier purchase list generation
+- Auto banner from low-stock/fresh-stock data

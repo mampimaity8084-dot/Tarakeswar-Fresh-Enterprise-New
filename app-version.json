@@ -1,0 +1,7 @@
+{
+  "version": "6.2-final-launch-all-in-one",
+  "channel": "stable",
+  "build": "FINAL-CLEAR-LAUNCH",
+  "notes": "Checkout layering, Family Hub touch-safe layout, working Help/Privacy navigation, fresh Customer App launcher, cache-busting service workers.",
+  "cacheBust": "20260823-ALL-IN-ONE"
+}

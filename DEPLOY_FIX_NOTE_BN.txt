@@ -1,0 +1,19 @@
+TARAKESWAR FRESH FISH — DEPLOY FIX NOTE
+
+Netlify-এর “Exposed secrets detected” error-টি এখানে Supabase Project URL-এর জন্য false positive।
+Supabase browser client-এ Project URL + Publishable key থাকা স্বাভাবিক; service_role/secret key browser file-এ নেই।
+
+এই fixed package-এ:
+1) Netlify Secrets Scanning-এ public supabase-config.js এবং দুইটি deployment guide বাদ দেওয়া হয়েছে।
+2) Deployment guides থেকে live project URL সরিয়ে placeholder দেওয়া হয়েছে।
+3) Backend-এর SUPABASE_SERVICE_ROLE_KEY / SUPABASE_SECRET_KEY server-side-এই রাখা হয়েছে।
+
+IMPORTANT:
+- Netlify Environment Variables-এ আগের server-side variables রাখুন:
+  SUPABASE_URL
+  SUPABASE_SERVICE_ROLE_KEY
+  RAZORPAY_KEY_ID
+  RAZORPAY_KEY_SECRET
+- নতুন deploy সফল না হওয়া পর্যন্ত Netlify পুরনো Published build-ই দেখাবে।
+- Deploy সফল হওয়ার পরে browser hard refresh করুন।
+- Admin-এর Product/Member যদি তবুও Loading-এ থাকে, Supabase SQL/RLS/auth setup check করতে হবে; সেটি Netlify secrets-scan error থেকে আলাদা সমস্যা।

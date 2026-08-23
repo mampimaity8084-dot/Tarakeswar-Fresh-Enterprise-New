@@ -1,0 +1,24 @@
+TARAKESWAR FRESH FISH — V5 DEPLOY GUIDE
+
+IMPORTANT:
+1) V4.3-FINAL-CANDIDATE.zip is the backup/master source.
+2) Do NOT run MASTER_FINAL_SETUP.sql blindly.
+3) Do NOT run AUTO_BANNER_FINAL.sql blindly.
+4) Do NOT change production Supabase before the V5 preview is checked.
+5) First deploy V5 as a Deploy Preview if Netlify provides that option.
+6) Test Customer, Admin and Delivery apps before Production Publish.
+7) Only after acceptance, publish one production deploy.
+
+V5 priorities:
+- Auto Banner Pro + banner_assets server-side access
+- Delivery Partner Pro + secure GPS + OTP
+- Wallet/Razorpay existing flows preserved
+- Smart Reorder
+- V5 Analytics
+
+Environment variables required by protected Netlify functions:
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SECRET_KEY)
+- ADMIN_EMAILS for admin-protected functions
+
+WhatsApp group auto-post is NOT promised. Android Share remains the supported share workflow.

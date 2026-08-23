@@ -1,0 +1,140 @@
+TARAKESWAR FRESH FISH — FINAL PRODUCTION READY
+================================================
+
+This package is intended as the one final Netlify upload.
+It includes:
+- Customer PWA + App Download QR
+- Clickable/auto-scrolling Combo & Offer banners
+- 25 Combo sample products
+- Admin panel + delivery partner management
+- Separate Delivery Partner PWA
+- Partner-specific delivery queues
+- Live GPS + OTP + maps/call/WhatsApp
+- Secure QR magic-link login for delivery partners
+- Realtime order/product/offer refresh
+- Push notification infrastructure
+- Razorpay checkout functions (Test Mode keys stay in Netlify env)
+
+IMPORTANT:
+1) Do NOT put Razorpay Secret, Supabase Service Role Key or VAPID private key inside files.
+2) Run FINAL_PRODUCTION_SETUP.sql ONCE in Supabase SQL Editor.
+3) Add the Netlify environment variables listed below.
+4) Add the Delivery redirect URL to Supabase Auth URL Configuration.
+5) Then deploy this ZIP ONCE. No merge with older ZIPs.
+
+NETLIFY ENVIRONMENT VARIABLES
+-----------------------------
+SUPABASE_URL                 = your Supabase project URL
+SUPABASE_SERVICE_ROLE_KEY   = Supabase service-role key
+RAZORPAY_KEY_ID             = your rzp_test_... key for Test Mode
+RAZORPAY_KEY_SECRET         = your Razorpay Test Secret
+ADMIN_EMAILS                = your admin login email (comma separated if multiple)
+
+PUSH NOTIFICATIONS (optional but included)
+-------------------------------------------
+VAPID_PUBLIC_KEY             = VAPID public key
+VAPID_PRIVATE_KEY            = VAPID private key
+VAPID_SUBJECT                = mailto:your-email@example.com
+
+To generate VAPID keys on a computer:
+  npx web-push generate-vapid-keys
+
+Keep VAPID_PRIVATE_KEY secret. Never put it in frontend code.
+
+SUPABASE AUTH REDIRECT
+----------------------
+In Supabase Dashboard:
+Authentication -> URL Configuration -> Redirect URLs
+Add:
+https://fancy-longma-e465fd.netlify.app/delivery.html
+
+If your Netlify domain changes, add the new exact delivery.html URL too.
+
+ONE-TIME SUPABASE SQL
+---------------------
+Open:
+FINAL_PRODUCTION_SETUP.sql
+Copy all -> Supabase SQL Editor -> New query -> Paste -> Run.
+
+This adds:
+- delivery_partner_id on orders
+- partner profile security policy
+- push subscription tables
+- realtime publication for orders/offers/fish/delivery locations
+- indexes for faster dashboards
+
+DELIVERY PARTNERS
+-----------------
+Admin -> Delivery Partners:
+1. Enter Rahul + email + mobile + vehicle -> Create/Update.
+2. Repeat for Suman, Arindam, etc.
+3. Generate QR Login for each partner.
+4. Print/save the QR and give it to that partner.
+5. Partner scans QR on their phone.
+6. The secure Supabase magic link opens delivery.html and establishes the login session.
+7. Install the Delivery PWA from Chrome menu / Install button.
+
+The QR does NOT contain a password.
+
+ORDER ASSIGNMENT
+----------------
+Admin -> Orders -> choose a Delivery Partner from the assignment dropdown.
+Only the assigned partner's delivery queue is shown in the Delivery App.
+
+GPS
+---
+Delivery partner must:
+- allow Location permission
+- keep phone Location/GPS ON
+- use HTTPS Netlify URL
+- press Start Live GPS after an Out for Delivery order is assigned.
+
+The dashboard updates order/location data and uses Supabase Realtime where enabled.
+
+PUSH NOTIFICATIONS
+------------------
+Customer opens the app -> taps the bell -> Allow notifications.
+Admin can send:
+- offers
+- discount
+- festival updates
+- poster/update notices
+- low/limited stock
+- order status updates
+- delivery assignment
+The notification backend uses VAPID keys.
+
+PERFORMANCE
+-----------
+Static app shell is cached by service workers.
+Admin and Delivery dashboards use Realtime plus fallback refresh.
+Delivery fallback refresh is 30 seconds.
+Actual first-load time depends on device/network/Supabase response; 1-2 seconds is a target, not a guaranteed SLA.
+
+RAZORPAY TEST
+-------------
+Keep:
+RAZORPAY_KEY_ID = rzp_test_...
+RAZORPAY_KEY_SECRET = Test Secret
+
+After environment variables are saved:
+Netlify -> Deploys -> Trigger deploy -> Deploy site
+No ZIP re-upload is required just for environment-variable changes.
+
+FINAL TEST ORDER
+----------------
+1. Customer QR -> opens app
+2. Customer Install PWA
+3. Customer bell -> notification permission
+4. Admin -> create Rahul
+5. Admin -> Generate QR Login
+6. Rahul scans -> Delivery App opens
+7. Admin assigns an order to Rahul
+8. Rahul sees only his assigned order
+9. Rahul -> Start Delivery -> GPS permission -> Live GPS
+10. Rahul -> Navigate / Call / WhatsApp
+11. Customer receives order status/offer notifications (after push setup)
+12. Customer checkout -> Razorpay Test Mode
+13. Test payment -> verify -> Admin order -> Delivery order
+
+If a database error appears after deployment, first confirm FINAL_PRODUCTION_SETUP.sql was run exactly once.

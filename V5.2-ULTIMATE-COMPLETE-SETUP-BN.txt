@@ -1,0 +1,9 @@
+V5.2 ULTIMATE COMPLETE
+
+1) Run supabase/migrations/0004_v52_ultimate_complete.sql after previous migrations.
+2) Set Netlify env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET.
+3) Optional AI: AI_API_URL and AI_API_KEY.
+4) Deploy the whole folder to Netlify.
+5) Test Customer, Delivery, Admin, payment, wallet, support, backup, offline queue, search and notifications.
+
+Security: service-role and payment secrets must stay in Netlify env variables. Never put them in frontend files.

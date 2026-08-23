@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "version": "6.0.0-final-launch",
+  "scripts": {"test:v6:static": "node tests/v6-static-check.mjs"},
+  "dependencies": {"web-push": "^3.6.7"}
+}

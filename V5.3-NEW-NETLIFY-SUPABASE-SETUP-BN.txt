@@ -1,0 +1,53 @@
+TARAKESWAR FRESH FISH V5.3 — নতুন Netlify account + পুরনো Supabase project
+
+হ্যাঁ, একই Supabase project নতুন Netlify site থেকে চালানো যাবে। Netlify শুধু frontend + serverless functions host করবে; Supabase database/auth/storage আগেরটাই থাকবে।
+
+STEP 1 — নতুন Netlify site
+1) নতুন Netlify account-এ login করুন।
+2) Add new project / Deploy manually ব্যবহার করুন।
+3) V5.3 ZIP extract করে folder-এর সব file upload করুন।
+4) Publish directory = root folder; netlify.toml থাকলে সেটাই build config দেবে।
+
+STEP 2 — Netlify Environment Variables
+Site configuration → Environment variables-এ দিন:
+SUPABASE_URL = পুরনো Supabase project URL
+SUPABASE_SERVICE_ROLE_KEY = পুরনো Supabase service_role key
+RAZORPAY_KEY_ID = আগের Razorpay key
+RAZORPAY_KEY_SECRET = আগের Razorpay secret
+ADMIN_EMAILS = আপনার Admin login email
+OPENAI_API_KEY = আপনার OpenAI API key (AI চাইলে)
+OPENAI_MODEL = gpt-5.6-luna (optional)
+WHATSAPP_ACCESS_TOKEN = Meta token (WhatsApp চাইলে)
+WHATSAPP_PHONE_NUMBER_ID = Meta phone number ID
+WHATSAPP_GRAPH_VERSION = Meta Graph version
+WHATSAPP_GROUP_ID = eligible Groups API group ID (group automation চাইলে)
+VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY / VAPID_SUBJECT = push চাইলে
+
+STEP 3 — Supabase Browser Config
+supabase-config.js-এ পুরনো project URL + publishable/anon key থাকবে। Secret/service_role এখানে কখনও দেবেন না।
+
+STEP 4 — Supabase Auth URL
+Supabase Dashboard → Authentication → URL Configuration → Site URL-এ নতুন Netlify URL দিন। Redirect URLs-এ নতুন URL-এর /, /admin.html, /delivery.html যোগ করুন। পুরনো domain দরকার হলে সেটিও রাখুন। Delivery magic-link-এর জন্য নতুন /delivery.html redirect অবশ্যই allow করুন।
+
+STEP 5 — Razorpay
+পুরনো Razorpay account/key ব্যবহার করা যাবে। Test mode হলে rzp_test_ key দিন। Payment secret শুধু Netlify env-এ থাকবে।
+
+STEP 6 — Delivery
+Admin login → Delivery Partners → প্রতিটি delivery boy-এর Auth account/profile তৈরি → secure QR/magic link → delivery.html login → GPS permission ON.
+
+STEP 7 — AI
+OpenAI key Netlify env-এ দিলে Customer AI server-side Responses API ব্যবহার করবে; key browser-এ যাবে না। Key না থাকলেও local product recommendation fallback থাকবে।
+
+STEP 8 — WhatsApp Group
+Current build official Groups API payload support করে। Meta eligibility/account approval, Group ID, phone number ID এবং access token লাগবে। Eligible না হলে Group Auto Post চালু হবে না; তখন manual Share/1:1 Cloud API ব্যবহার করুন।
+
+STEP 9 — Backup/Restore
+Admin → Backup থেকে JSON download করুন। Restore-এ JSON upload করলে admin-authenticated server endpoint allowlisted tables upsert করবে। Restore-এর আগে backup রাখা বাধ্যতামূলকভাবে recommended.
+
+STEP 10 — Final test
+Customer: splash → products → cart → checkout → Razorpay → order → Help → AI.
+Admin: login → orders → products → offers → members → delivery partner → Auto Banner → WhatsApp test → backup/restore.
+Delivery: login → assigned order → GPS → OTP → delivered → earnings.
+
+IMPORTANT
+অন্য Gmail দিয়ে নতুন Netlify account ব্যবহার করা শুধু বৈধ/অনুমোদিত account usage-এর জন্য করুন; platform-এর billing/usage limit bypass করার জন্য multiple accounts তৈরি করবেন না।
