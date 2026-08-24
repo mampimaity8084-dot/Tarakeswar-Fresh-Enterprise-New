@@ -1,4 +1,4 @@
-const C='tff-v6.2-final-launch-auto-20260823-1';const A=['/','/index.html','/logo-transparent.png','/app-icon-192.png','/app-icon-512.png','/manifest.webmanifest','/supabase-config.js','/tff-v6-runtime.js','/app-version.json'];self.addEventListener('install',e=>e.waitUntil(
+const C='tff-v6.2-final-launch-auto-20260824-2';const A=['/','/index.html','/logo-transparent.png','/app-icon-192.png','/app-icon-512.png','/manifest.webmanifest','/supabase-config.js','/tff-v6-runtime.js','/app-version.json'];self.addEventListener('install',e=>e.waitUntil(
   caches.open(C).then(c=>c.addAll(A)).then(()=>self.skipWaiting())
 ));self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||e.request.url.includes('/.netlify/functions/')||e.request.url.includes('supabase.co'))return;e.respondWith(fetch(e.request).then(r=>{let x=r.clone();caches.open(C).then(c=>c.put(e.request,x));return r}).catch(()=>caches.match(e.request)))})
 self.addEventListener('push',e=>{
