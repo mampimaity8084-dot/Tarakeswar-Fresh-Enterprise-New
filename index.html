@@ -39,11 +39,12 @@
     @media(max-width:520px){.grid{grid-template-columns:repeat(2,1fr);gap:10px}.hero h1{font-size:28px}}
   </style>
 
-  <!-- Supabase & App Config Core Scripts -->
+  <!-- Core Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-config.js"></script>
   <script src="native-config.js" onerror="this.remove()"></script>
-  <!-- V6 Main Logic -->
+  <!-- Runtime & V6 Final Logic -->
+  <script src="ttf-v6-runtime.js" onerror="console.warn('runtime optional')"></script>
   <script src="ttf-v6-final.js" defer></script>
 </head>
 <body>
@@ -57,6 +58,13 @@
   </header>
 
   <main class="wrap">
+    <!-- Smart Reorder & Member Special Sections -->
+    <section class="panel" id="smartReorderPanel" style="display:none"></section>
+    <section class="panel" id="memberSpecialPanel" style="background:linear-gradient(135deg,#071b34,#0a8a50);color:#white">
+      <h2>আজকের Member Special</h2>
+      <div id="memberSpecialContent"><p>Loading...</p></div>
+    </section>
+
     <!-- Hero Banner -->
     <section class="hero">
       <h1>তাজা মাছ ও মাংস সরাসরি বাড়িতে 🐟🍗</h1>
@@ -68,10 +76,10 @@
     <section class="panel">
       <h2>ক্যাটাগরি</h2>
       <div class="cats" id="catList">
-        <button class="chip active">সব পণ্য</button>
-        <button class="chip">🐟 মাছ</button>
-        <button class="chip">🍗 চিকেন & মটন</button>
-        <button class="chip">🥚 ডিম ও দুগ্ধজাত</button>
+        <button class="chip active" onclick="window.filterCat?.('all')">সব পণ্য</button>
+        <button class="chip" onclick="window.filterCat?.('Fish')">🐟 মাছ</button>
+        <button class="chip" onclick="window.filterCat?.('Chicken')">🍗 চিকেন & মটন</button>
+        <button class="chip" onclick="window.filterCat?.('Dairy')">🥚 ডিম ও দুগ্ধজাত</button>
       </div>
     </section>
 
